@@ -1,4 +1,5 @@
 #include "autoreload.h"
+#include "buttons.h"
 
 #include "tick.h"
 
@@ -17,6 +18,10 @@ static void ms_tick(struct tc_module *const module_inst) {
     #ifdef CIRCUITPY_AUTORELOAD_DELAY_MS
         autoreload_tick();
     #endif
+    if (ticks_ms & 0x0f) {
+        // Every 16 ticks.
+        buttons_tick();
+    }
 }
 
 void tick_init() {
