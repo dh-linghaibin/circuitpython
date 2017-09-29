@@ -16,7 +16,7 @@ void buttons_tick(void) {
 
     uint8_t buttons_current = 0;
     uint8_t bit = 1;
-    for (int i=0; i<6; ++i) {
+    for (int i=0; i<8; ++i) {
         if (!button_pins[i]) {
             break;
         }
