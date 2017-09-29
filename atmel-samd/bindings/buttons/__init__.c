@@ -27,6 +27,22 @@
  #include "py/runtime.h"
  #include "buttons.h"
 
+//| :mod:`buttons` --- Button handling
+//  ==================================
+//|
+//| .. module:: buttons
+//|   :synopsis: Button handling
+//|   :platform: SAMD21
+//|
+
+//| ..function:: get_pressed()
+//|
+//| Get the status of buttons pressed since the last call.
+//|
+//| Returns an 8-bit number, with bits that correspond to buttons, which
+//| have been pressed (or held down) since the last call to this function
+//| set to 1, and the remaining bits set to 0.
+//|
 STATIC mp_obj_t buttons_get_pressed(void) {
     mp_obj_t buttons = MP_OBJ_NEW_SMALL_INT(buttons_pressed);
     buttons_pressed = 0;
@@ -34,6 +50,16 @@ STATIC mp_obj_t buttons_get_pressed(void) {
 }
 MP_DEFINE_CONST_FUN_OBJ_0(buttons_get_pressed_obj, buttons_get_pressed);
 
+//| ..function:: setup([b1[, b2[, b3[, b4[, b5[, b6[, b7[, b8]]]]]]]])
+//|
+//| Initializes button scanning routines.
+//|
+//| The ``b1``-``b8`` parameters are ``DigitalInOut`` objects, which
+//| immediately get switched to input with a pull-up, and then scanned
+//| regularly for button presses. The order is the same as the order of
+//| bits returned by the ``get_pressed`` function. To disable button
+//| scanning, call this without any arguments.
+//|
 STATIC mp_obj_t buttons_setup(size_t n_args, const mp_obj_t *args) {
     buttons_init(n_args, args);
     return mp_const_none;
