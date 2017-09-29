@@ -192,7 +192,6 @@ SRC_ASF = $(addprefix asf/sam0/,\
 SRC_C = \
 	access_vfs.c \
 	autoreload.c \
-	buttons.c \
 	background.c \
 	fatfs_port.c \
 	flash_api.c \
@@ -205,7 +204,6 @@ SRC_C = \
 	tick.c \
 	$(FLASH_IMPL) \
 	bindings/samd/__init__.c \
-	bindings/buttons/__init__.c \
 	asf/common/services/sleepmgr/samd/sleepmgr.c \
 	asf/common/services/storage/ctrl_access/ctrl_access.c  \
 	asf/common/services/usb/class/cdc/device/udi_cdc.c \
@@ -286,6 +284,7 @@ SRC_SHARED_MODULE = \
 	bitbangio/OneWire.c \
 	bitbangio/SPI.c \
 	busio/OneWire.c \
+	gamepad/__init__.c \
 	os/__init__.c \
 	random/__init__.c \
 	storage/__init__.c \

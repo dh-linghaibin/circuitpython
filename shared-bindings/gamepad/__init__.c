@@ -25,30 +25,30 @@
  */
  #include "py/obj.h"
  #include "py/runtime.h"
- #include "buttons.h"
+ #include "shared-module/gamepad/__init__.h"
 
-//| :mod:`buttons` --- Button handling
+//| :mod:`gamepad` --- Button handling
 //  ==================================
 //|
-//| .. module:: buttons
+//| .. module:: gamepad
 //|   :synopsis: Button handling
 //|   :platform: SAMD21
 //|
 
 //| ..function:: get_pressed()
 //|
-//| Get the status of buttons pressed since the last call.
+//| Get the status of gamepad pressed since the last call.
 //|
-//| Returns an 8-bit number, with bits that correspond to buttons, which
+//| Returns an 8-bit number, with bits that correspond to gamepad, which
 //| have been pressed (or held down) since the last call to this function
 //| set to 1, and the remaining bits set to 0.
 //|
-STATIC mp_obj_t buttons_get_pressed(void) {
-    mp_obj_t buttons = MP_OBJ_NEW_SMALL_INT(buttons_pressed);
-    buttons_pressed = 0;
-    return buttons;
+STATIC mp_obj_t gamepad_get_pressed(void) {
+    mp_obj_t gamepad = MP_OBJ_NEW_SMALL_INT(gamepad_pressed);
+    gamepad_pressed = 0;
+    return gamepad;
 }
-MP_DEFINE_CONST_FUN_OBJ_0(buttons_get_pressed_obj, buttons_get_pressed);
+MP_DEFINE_CONST_FUN_OBJ_0(gamepad_get_pressed_obj, gamepad_get_pressed);
 
 //| ..function:: setup([b1[, b2[, b3[, b4[, b5[, b6[, b7[, b8]]]]]]]])
 //|
@@ -60,21 +60,21 @@ MP_DEFINE_CONST_FUN_OBJ_0(buttons_get_pressed_obj, buttons_get_pressed);
 //| bits returned by the ``get_pressed`` function. To disable button
 //| scanning, call this without any arguments.
 //|
-STATIC mp_obj_t buttons_setup(size_t n_args, const mp_obj_t *args) {
-    buttons_init(n_args, args);
+STATIC mp_obj_t gamepad_setup(size_t n_args, const mp_obj_t *args) {
+    gamepad_init(n_args, args);
     return mp_const_none;
 }
-MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(buttons_setup_obj, 0, 8, buttons_setup);
+MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(gamepad_setup_obj, 0, 8, gamepad_setup);
 
-STATIC const mp_rom_map_elem_t buttons_module_globals_table[] = {
-    { MP_ROM_QSTR(MP_QSTR___name__), MP_ROM_QSTR(MP_QSTR_buttons) },
-    { MP_OBJ_NEW_QSTR(MP_QSTR_get_pressed),  MP_ROM_PTR(&buttons_get_pressed_obj)},
-    { MP_OBJ_NEW_QSTR(MP_QSTR_setup),  MP_ROM_PTR(&buttons_setup_obj)},
+STATIC const mp_rom_map_elem_t gamepad_module_globals_table[] = {
+    { MP_ROM_QSTR(MP_QSTR___name__), MP_ROM_QSTR(MP_QSTR_gamepad) },
+    { MP_OBJ_NEW_QSTR(MP_QSTR_get_pressed),  MP_ROM_PTR(&gamepad_get_pressed_obj)},
+    { MP_OBJ_NEW_QSTR(MP_QSTR_setup),  MP_ROM_PTR(&gamepad_setup_obj)},
 };
 
-STATIC MP_DEFINE_CONST_DICT(buttons_module_globals, buttons_module_globals_table);
+STATIC MP_DEFINE_CONST_DICT(gamepad_module_globals, gamepad_module_globals_table);
 
-const mp_obj_module_t buttons_module = {
+const mp_obj_module_t gamepad_module = {
     .base = { &mp_type_module },
-    .globals = (mp_obj_dict_t*)&buttons_module_globals,
+    .globals = (mp_obj_dict_t*)&gamepad_module_globals,
 };

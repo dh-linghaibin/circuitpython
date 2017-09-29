@@ -1,5 +1,5 @@
 #include "autoreload.h"
-#include "buttons.h"
+#include "shared-module/gamepad/__init__.h"
 
 #include "tick.h"
 
@@ -18,10 +18,12 @@ static void ms_tick(struct tc_module *const module_inst) {
     #ifdef CIRCUITPY_AUTORELOAD_DELAY_MS
         autoreload_tick();
     #endif
+    #ifdef CIRCUITPY_GAMEPAD_MODULE_ENABLED
     if (!(ticks_ms & 0x1f)) {
         // Every 32 ticks.
-        buttons_tick();
+        gamepad_tick();
     }
+    #endif
 }
 
 void tick_init() {

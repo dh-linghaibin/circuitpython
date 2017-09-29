@@ -24,17 +24,17 @@
  * THE SOFTWARE.
  */
 
-#ifndef MICROPY_INCLUDED_ATMEL_SAMD_BUTTONS_H
-#define MICROPY_INCLUDED_ATMEL_SAMD_BUTTONS_H
+#ifndef MICROPY_INCLUDED_GAMEPAD_H
+#define MICROPY_INCLUDED_GAMEPAD_H
 
 #include <stdint.h>
 
 #include "shared-bindings/digitalio/DigitalInOut.h"
 
 
-extern volatile uint8_t buttons_pressed;
+extern volatile uint8_t gamepad_pressed;
 
-void buttons_tick(void);
-void buttons_init(size_t n_pins, const mp_obj_t* pins);
+void gamepad_tick(void);
+void gamepad_init(size_t n_pins, const mp_obj_t* pins);
 
-#endif  // MICROPY_INCLUDED_ATMEL_SAMD_BUTTONS_H
+#endif  // MICROPY_INCLUDED_GAMEPAD_H

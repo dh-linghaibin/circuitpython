@@ -152,7 +152,7 @@ extern const struct _mp_obj_module_t neopixel_write_module;
 extern const struct _mp_obj_module_t uheap_module;
 extern const struct _mp_obj_module_t ustack_module;
 extern const struct _mp_obj_module_t samd_module;
-extern const struct _mp_obj_module_t buttons_module;
+extern const struct _mp_obj_module_t gamepad_module;
 extern const struct _mp_obj_module_t touchio_module;
 extern const struct _mp_obj_module_t usb_hid_module;
 
@@ -197,13 +197,13 @@ extern const struct _mp_obj_module_t usb_hid_module;
     { MP_OBJ_NEW_QSTR(MP_QSTR_digitalio), (mp_obj_t)&digitalio_module }, \
     { MP_OBJ_NEW_QSTR(MP_QSTR_busio), (mp_obj_t)&busio_module }, \
     { MP_OBJ_NEW_QSTR(MP_QSTR_board), (mp_obj_t)&board_module }, \
+    { MP_OBJ_NEW_QSTR(MP_QSTR_gamepad),(mp_obj_t)&gamepad_module }, \
     { MP_OBJ_NEW_QSTR(MP_QSTR_os), (mp_obj_t)&os_module }, \
     { MP_OBJ_NEW_QSTR(MP_QSTR_random), (mp_obj_t)&random_module }, \
     { MP_OBJ_NEW_QSTR(MP_QSTR_storage), (mp_obj_t)&storage_module }, \
     { MP_OBJ_NEW_QSTR(MP_QSTR_time), (mp_obj_t)&time_module }, \
     { MP_OBJ_NEW_QSTR(MP_QSTR_neopixel_write),(mp_obj_t)&neopixel_write_module }, \
     { MP_OBJ_NEW_QSTR(MP_QSTR_samd),(mp_obj_t)&samd_module }, \
-    { MP_OBJ_NEW_QSTR(MP_QSTR_samd),(mp_obj_t)&buttons_module }, \
     { MP_OBJ_NEW_QSTR(MP_QSTR_usb_hid),(mp_obj_t)&usb_hid_module }, \
     EXTRA_BUILTIN_MODULES
 
