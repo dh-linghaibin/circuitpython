@@ -8,7 +8,7 @@
 
 
 volatile uint8_t buttons_pressed;
-static digitalio_digitalinout_obj_t* button_pins[8];
+static digitalio_digitalinout_obj_t* button_pins[8] = {};
 
 
 void buttons_tick(void) {
@@ -29,7 +29,7 @@ void buttons_tick(void) {
     buttons_last = buttons_current;
 }
 
-void buttons_setup(size_t n_pins, const mp_obj_t* pins) {
+void buttons_init(size_t n_pins, const mp_obj_t* pins) {
     for (size_t i=0; i<8; ++i) {
         button_pins[i] = NULL;
     }

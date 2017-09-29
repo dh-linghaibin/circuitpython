@@ -26,22 +26,7 @@
  #include "py/obj.h"
  #include "py/runtime.h"
  #include "autoreload.h"
- #include "buttons.h"
  #include "rgb_led_status.h"
-
-STATIC mp_obj_t samd_get_buttons(void) {
-    mp_obj_t buttons = MP_OBJ_NEW_SMALL_INT(buttons_pressed);
-    buttons_pressed = 0;
-    return buttons;
-}
-MP_DEFINE_CONST_FUN_OBJ_0(samd_get_buttons_obj, samd_get_buttons);
-
-STATIC mp_obj_t samd_setup_buttons(size_t n_args, const mp_obj_t *args) {
-    buttons_setup(n_args, args);
-    return mp_const_none;
-}
-MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(samd_setup_buttons_obj, 0, 8,
-        samd_setup_buttons);
 
 //| :mod:`samd` --- SAMD implementation settings
 //| =================================================
@@ -93,8 +78,6 @@ STATIC const mp_rom_map_elem_t samd_module_globals_table[] = {
     { MP_OBJ_NEW_QSTR(MP_QSTR_enable_autoreload),  MP_ROM_PTR(&samd_enable_autoreload_obj)},
     { MP_OBJ_NEW_QSTR(MP_QSTR_disable_autoreload),  MP_ROM_PTR(&samd_disable_autoreload_obj)},
     { MP_OBJ_NEW_QSTR(MP_QSTR_set_rgb_status_brightness),  MP_ROM_PTR(&samd_set_rgb_status_brightness_obj)},
-    { MP_OBJ_NEW_QSTR(MP_QSTR_get_buttons),  MP_ROM_PTR(&samd_get_buttons_obj)},
-    { MP_OBJ_NEW_QSTR(MP_QSTR_setup_buttons),  MP_ROM_PTR(&samd_setup_buttons_obj)},
 };
 
 STATIC MP_DEFINE_CONST_DICT(samd_module_globals, samd_module_globals_table);

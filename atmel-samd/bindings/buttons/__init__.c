@@ -3,7 +3,7 @@
  *
  * The MIT License (MIT)
  *
- * Copyright (c) 2016 Scott Shawcroft for Adafruit Industries
+ * Copyright (c) 2016 Radomir Dopieralski for Adafruit Industries
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,18 +23,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+ #include "py/obj.h"
+ #include "py/runtime.h"
+ #include "buttons.h"
 
-#ifndef MICROPY_INCLUDED_ATMEL_SAMD_BUTTONS_H
-#define MICROPY_INCLUDED_ATMEL_SAMD_BUTTONS_H
+STATIC mp_obj_t buttons_get_pressed(void) {
+    mp_obj_t buttons = MP_OBJ_NEW_SMALL_INT(buttons_pressed);
+    buttons_pressed = 0;
+    return buttons;
+}
+MP_DEFINE_CONST_FUN_OBJ_0(buttons_get_pressed_obj, buttons_get_pressed);
 
-#include <stdint.h>
+STATIC mp_obj_t buttons_setup(size_t n_args, const mp_obj_t *args) {
+    buttons_init(n_args, args);
+    return mp_const_none;
+}
+MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(buttons_setup_obj, 0, 8, buttons_setup);
 
-#include "shared-bindings/digitalio/DigitalInOut.h"
+STATIC const mp_rom_map_elem_t buttons_module_globals_table[] = {
+    { MP_ROM_QSTR(MP_QSTR___name__), MP_ROM_QSTR(MP_QSTR_buttons) },
+    { MP_OBJ_NEW_QSTR(MP_QSTR_get_pressed),  MP_ROM_PTR(&buttons_get_pressed_obj)},
+    { MP_OBJ_NEW_QSTR(MP_QSTR_setup),  MP_ROM_PTR(&buttons_setup_obj)},
+};
 
+STATIC MP_DEFINE_CONST_DICT(buttons_module_globals, buttons_module_globals_table);
 
-extern volatile uint8_t buttons_pressed;
-
-void buttons_tick(void);
-void buttons_init(size_t n_pins, const mp_obj_t* pins);
-
-#endif  // MICROPY_INCLUDED_ATMEL_SAMD_BUTTONS_H
+const mp_obj_module_t buttons_module = {
+    .base = { &mp_type_module },
+    .globals = (mp_obj_dict_t*)&buttons_module_globals,
+};
