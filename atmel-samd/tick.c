@@ -18,8 +18,8 @@ static void ms_tick(struct tc_module *const module_inst) {
     #ifdef CIRCUITPY_AUTORELOAD_DELAY_MS
         autoreload_tick();
     #endif
-    if (ticks_ms & 0x0f) {
-        // Every 16 ticks.
+    if (!(ticks_ms & 0x1f)) {
+        // Every 32 ticks.
         buttons_tick();
     }
 }

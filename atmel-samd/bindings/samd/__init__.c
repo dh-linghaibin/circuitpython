@@ -30,15 +30,17 @@
  #include "rgb_led_status.h"
 
 STATIC mp_obj_t samd_get_buttons(void) {
-    return MP_OBJ_NEW_SMALL_INT(buttons_pressed);
+    mp_obj_t buttons = MP_OBJ_NEW_SMALL_INT(buttons_pressed);
+    buttons_pressed = 0;
+    return buttons;
 }
 MP_DEFINE_CONST_FUN_OBJ_0(samd_get_buttons_obj, samd_get_buttons);
 
 STATIC mp_obj_t samd_setup_buttons(size_t n_args, const mp_obj_t *args) {
-    buttons_setup(args[0], args[1], args[2], args[3], args[4], args[5]);
+    buttons_setup(n_args, args);
     return mp_const_none;
 }
-MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(samd_setup_buttons_obj, 6, 6,
+MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(samd_setup_buttons_obj, 0, 8,
         samd_setup_buttons);
 
 //| :mod:`samd` --- SAMD implementation settings

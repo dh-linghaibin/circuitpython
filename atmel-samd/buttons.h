@@ -35,12 +35,6 @@
 extern volatile uint8_t buttons_pressed;
 
 void buttons_tick(void);
-void buttons_setup(
-        digitalio_digitalinout_obj_t* pin_up,
-        digitalio_digitalinout_obj_t* pin_down,
-        digitalio_digitalinout_obj_t* pin_left,
-        digitalio_digitalinout_obj_t* pin_right,
-        digitalio_digitalinout_obj_t* pin_o,
-        digitalio_digitalinout_obj_t* pin_x);
+void buttons_setup(size_t n_pins, const mp_obj_t* pins);
 
 #endif  // MICROPY_INCLUDED_ATMEL_SAMD_BUTTONS_H
