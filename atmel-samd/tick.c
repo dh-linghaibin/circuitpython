@@ -18,9 +18,8 @@ static void ms_tick(struct tc_module *const module_inst) {
     #ifdef CIRCUITPY_AUTORELOAD_DELAY_MS
         autoreload_tick();
     #endif
-    #ifdef CIRCUITPY_GAMEPAD_MODULE_ENABLED
-    if (!(ticks_ms & 0x1f)) {
-        // Every 32 ticks.
+    #ifdef CIRCUITPY_GAMEPAD_TICKS
+    if (!(ticks_ms & CIRCUITPY_GAMEPAD_TICKS)) {
         gamepad_tick();
     }
     #endif

@@ -247,5 +247,7 @@ void run_background_tasks(void);
 
 #define CIRCUITPY_AUTORELOAD_DELAY_MS 500
 #define CIRCUITPY_BOOT_OUTPUT_FILE "/boot_out.txt"
+// Scan gamepad every 32ms
+#define CIRCUITPY_GAMEPAD_TICKS 0x1f
 
 #endif  // __INCLUDED_MPCONFIGPORT_H
