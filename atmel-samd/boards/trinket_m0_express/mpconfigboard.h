@@ -28,12 +28,12 @@
 #define MICROPY_PORT_B        (0)
 #define MICROPY_PORT_C        (0)
 
+#define CALIBRATE_CRYSTALLESS 1
+
 #include "spi_flash.h"
 
 #define CIRCUITPY_INTERNAL_NVM_SIZE 256
 #define BOARD_FLASH_SIZE (0x00040000 - 0x2000 - CIRCUITPY_INTERNAL_NVM_SIZE)
 
-#include "flash_S25FL216K.h"
+#include "flash_W25Q32BV.h"
 
-#define CALIBRATE_CRYSTALLESS 1
-#define CIRCUITPY_INTERNAL_NVM_SIZE 0
