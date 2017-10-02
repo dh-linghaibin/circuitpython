@@ -30,7 +30,8 @@
 
 #include "spi_flash.h"
 
-#define BOARD_FLASH_SIZE (0x00040000 - 0x2000)
+#define CIRCUITPY_INTERNAL_NVM_SIZE 256
+#define BOARD_FLASH_SIZE (0x00040000 - 0x2000 - CIRCUITPY_INTERNAL_NVM_SIZE)
 
 #include "flash_S25FL216K.h"
 
