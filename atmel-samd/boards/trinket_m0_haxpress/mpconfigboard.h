@@ -1,6 +1,6 @@
 #define USB_REPL
 
-#define MICROPY_HW_BOARD_NAME "Adafruit Trinket M0 Express"
+#define MICROPY_HW_BOARD_NAME "Trinket M0 Haxpress"
 #define MICROPY_HW_MCU_NAME "samd21e18"
 
 // Rev B - Black

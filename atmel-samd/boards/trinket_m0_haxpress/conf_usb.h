@@ -17,11 +17,11 @@
 
 //! USB Device string definitions (Optional)
 #ifndef USB_DEVICE_MANUFACTURE_NAME
-#  define USB_DEVICE_MANUFACTURE_NAME "Adafruit Industries"
+#  define USB_DEVICE_MANUFACTURE_NAME "Radomir Dopieralski"
 #endif
 
 #ifndef USB_DEVICE_PRODUCT_NAME
-#  define USB_DEVICE_PRODUCT_NAME "Trinket M0"
+#  define USB_DEVICE_PRODUCT_NAME "Trinket M0 Haxpress"
 #endif
 // #define  USB_DEVICE_SERIAL_NAME           "12...EF"
 #define  USB_DEVICE_GET_SERIAL_NAME_POINTER  serial_number
