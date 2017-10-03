@@ -172,6 +172,8 @@ extern const struct _mp_obj_module_t usb_hid_module;
     #define MICROPY_PY_ARRAY_SLICE_ASSIGN (1)
     #define MICROPY_PY_SYS_MAXSIZE      (1)
     #define MICROPY_CPYTHON_COMPAT      (1)
+    // Scan gamepad every 32ms
+    #define CIRCUITPY_GAMEPAD_TICKS 0x1f
 
     #define EXTRA_BUILTIN_MODULES \
         { MP_OBJ_NEW_QSTR(MP_QSTR_audioio), (mp_obj_t)&audioio_module }, \
@@ -247,7 +249,5 @@ void run_background_tasks(void);
 
 #define CIRCUITPY_AUTORELOAD_DELAY_MS 500
 #define CIRCUITPY_BOOT_OUTPUT_FILE "/boot_out.txt"
-// Scan gamepad every 32ms
-#define CIRCUITPY_GAMEPAD_TICKS 0x1f
 
 #endif  // __INCLUDED_MPCONFIGPORT_H
