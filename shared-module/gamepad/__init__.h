@@ -27,20 +27,6 @@
 #ifndef MICROPY_INCLUDED_GAMEPAD_H
 #define MICROPY_INCLUDED_GAMEPAD_H
 
-#include <stdint.h>
-
-#include "shared-bindings/digitalio/DigitalInOut.h"
-
-typedef struct {
-    mp_obj_base_t base;
-    digitalio_digitalinout_obj_t* pins[8];
-    volatile uint8_t last;
-    volatile uint8_t pressed;
-} gamepad_obj_t;
-
-extern gamepad_obj_t* gamepad_singleton;
-
 void gamepad_tick(void);
-void gamepad_init(size_t n_pins, const mp_obj_t* pins);
 
 #endif  // MICROPY_INCLUDED_GAMEPAD_H

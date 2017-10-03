@@ -24,28 +24,10 @@
  * THE SOFTWARE.
  */
 
-#include <stdbool.h>
 
-#include "__init__.h"
-#include "GamePad.h"
+#ifndef MICROPY_INCLUDED_SHARED_BINDINGS_GAMEPAD_GAMEPAD_H
+#define MICROPY_INCLUDED_SHARED_BINDINGS_GAMEPAD_GAMEPAD_H
 
-#include "shared-bindings/digitalio/DigitalInOut.h"
+extern const mp_obj_type_t gamepad_type;
 
-
-void gamepad_tick(void) {
-    if (!gamepad_singleton) {
-        return;
-    }
-    uint8_t gamepad_current = 0;
-    for (int i=0; i<8; ++i) {
-        digitalio_digitalinout_obj_t* pin = gamepad_singleton->pins[i];
-        if (!pin) {
-            break;
-        }
-        if (!common_hal_digitalio_digitalinout_get_value(pin)) {
-            gamepad_current |= 1<<i;
-        }
-    }
-    gamepad_singleton->pressed |= gamepad_singleton->last & gamepad_current;
-    gamepad_singleton->last = gamepad_current;
-}
+#endif // MICROPY_INCLUDED_SHARED_BINDINGS_GAMEPAD_GAMEPAD_H
