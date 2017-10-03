@@ -29,6 +29,18 @@
 #include "GamePad.h"
 
 
+//| :mod:`gamepad` --- Button handling
+//| ==================================
+//|
+//| .. module:: gamepad
+//|   :synopsis: Button handling
+//|   :platform: SAMD21
+//|
+//| .. toctree::
+//|     :maxdepth: 3
+//|
+//|     GamePad
+//|
 STATIC const mp_rom_map_elem_t gamepad_module_globals_table[] = {
     { MP_ROM_QSTR(MP_QSTR___name__), MP_ROM_QSTR(MP_QSTR_gamepad) },
     { MP_OBJ_NEW_QSTR(MP_QSTR_GamePad),  MP_ROM_PTR(&gamepad_type)},
