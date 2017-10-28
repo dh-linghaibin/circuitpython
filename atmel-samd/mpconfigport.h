@@ -186,12 +186,14 @@ extern const struct _mp_obj_module_t usb_hid_module;
     #define MICROPY_PY_BUILTINS_REVERSED (0)
     #define MICROPY_PY_MICROPYTHON_MEM_INFO (0)
     #define MICROPY_PY_FRAMEBUF         (0)
-    #define EXTRA_BUILTIN_MODULES
+    #define EXTRA_BUILTIN_MODULES \
+        { MP_OBJ_NEW_QSTR(MP_QSTR_gamepad),(mp_obj_t)&gamepad_module }
 
     #define MICROPY_PY_BUILTINS_COMPLEX (0)
 
     #define MICROPY_BUILTIN_METHOD_CHECK_SELF_ARG (0)
     #define MICROPY_CPYTHON_COMPAT      (0)
+    #define CIRCUITPY_GAMEPAD_TICKS 0x1f
 #endif
 
 #define MICROPY_PORT_BUILTIN_MODULES \

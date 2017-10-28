@@ -24,28 +24,14 @@
  * THE SOFTWARE.
  */
 
-#ifndef MICROPY_INCLUDED_ATMEL_SAMD_BOARD_FLASH_W25Q32BV_H
-#define MICROPY_INCLUDED_ATMEL_SAMD_BOARD_FLASH_W25Q32BV_H
+#include "boards/board.h"
 
-// The total flash size in bytes.
-#define SPI_FLASH_TOTAL_SIZE  (1 << 22) // 4 MiB
+void board_init(void) {
+}
 
-// The size of the smallest erase unit thats erased with command 0x20.
-#define SPI_FLASH_ERASE_SIZE  (1 << 12) // 4 KiB
+bool board_requests_safe_mode(void) {
+    return false;
+}
 
-// The size of a page that is programmed with page program command 0x02.
-#define SPI_FLASH_PAGE_SIZE   (256)     // 256 bytes
-
-// These are the first three response bytes to the JEDEC ID command 0x9f that is
-// used to confirm we're talking to the flash we expect.
-#ifndef SPI_FLASH_JEDEC_MANUFACTURER
-#define SPI_FLASH_JEDEC_MANUFACTURER 0xef
-#define SPI_FLASH_SECTOR_PROTECTION false
-#else
-#define SPI_FLASH_JEDEC_MANUFACTURER_2 0xef
-#define SPI_FLASH_SECTOR_PROTECTION_2 false
-#endif
-#define SPI_FLASH_JEDEC_MEMORY_TYPE  0x40
-#define SPI_FLASH_JEDEC_CAPACITY     0x16
-
-#endif  // MICROPY_INCLUDED_ATMEL_SAMD_BOARD_FLASH_W25Q32BV_H
+void reset_board(void) {
+}
