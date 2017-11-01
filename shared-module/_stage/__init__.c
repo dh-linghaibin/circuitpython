@@ -59,9 +59,37 @@ uint16_t get_layer_pixel(layer_obj_t *layer, int16_t x, uint16_t y) {
     x &= 0x0f;
     y &= 0x0f;
 
-    // Mirror the image if needed.
-    if (layer->mirror) {
-        y = 15 - y;
+    // Rotate the image.
+    uint8_t tx = x; // Temporary variable for swapping.
+    switch (layer->rotation) {
+        case 1: // 90 degrees clockwise
+            x = 15 - y;
+            y = tx;
+            break;
+        case 2: // 180 degrees
+            x = 15 - tx;
+            y = 15 - y;
+            break;
+        case 3: // 90 degrees counter-clockwise
+            x = y;
+            y = 15 - tx;
+            break;
+        case 4: // 0 degrees, mirrored
+            y = 15 - y;
+            break;
+        case 5: // 90 degrees clockwise, mirrored
+            x = y;
+            y = tx;
+            break;
+        case 6: // 180 degrees, mirrored
+            x = 15 - tx;
+            break;
+        case 7: // 90 degrees counter-clockwise, mirrored
+            x = 15 - y;
+            y = 15 - tx;
+            break;
+        default: // 0 degrees
+            break;
     }
 
     // Get the value of the pixel.

@@ -59,7 +59,7 @@ STATIC mp_obj_t layer_make_new(const mp_obj_type_t *type, size_t n_args,
     self->x = 0;
     self->y = 0;
     self->frame = 0;
-    self->mirror = false;
+    self->rotation = false;
 
     mp_buffer_info_t bufinfo;
     mp_get_buffer_raise(args[2], &bufinfo, MP_BUFFER_READ);
@@ -99,16 +99,16 @@ STATIC mp_obj_t layer_move(mp_obj_t self_in, mp_obj_t x_in, mp_obj_t y_in) {
 }
 STATIC MP_DEFINE_CONST_FUN_OBJ_3(layer_move_obj, layer_move);
 
-//|     .. method:: frame(frame, mirror)
+//|     .. method:: frame(frame, rotation)
 //|
-//|     Set the animation frame of the sprite, and optionally mirror its
+//|     Set the animation frame of the sprite, and optionally rotation its
 //|     graphic.
 //|
 STATIC mp_obj_t layer_frame(mp_obj_t self_in, mp_obj_t frame_in,
-                            mp_obj_t mirror_in) {
+                            mp_obj_t rotation_in) {
     layer_obj_t *self = MP_OBJ_TO_PTR(self_in);
     self->frame = mp_obj_get_int(frame_in);
-    self->mirror = mp_obj_get_int(mirror_in);
+    self->rotation = mp_obj_get_int(rotation_in);
     return mp_const_none;
 }
 STATIC MP_DEFINE_CONST_FUN_OBJ_3(layer_frame_obj, layer_frame);

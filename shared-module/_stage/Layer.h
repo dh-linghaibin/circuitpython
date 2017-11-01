@@ -40,7 +40,7 @@ typedef struct {
     uint16_t width, height;
     int16_t x, y, z;
     uint8_t frame;
-    bool mirror;
+    uint8_t rotation;
 } layer_obj_t;
 
 #endif  // MICROPY_INCLUDED_SHARED_MODULE__STAGE_LAYER
