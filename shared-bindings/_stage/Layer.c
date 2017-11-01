@@ -27,7 +27,26 @@
 #include "__init__.h"
 #include "Layer.h"
 
-
+//| .. currentmodule:: _stage
+//|
+//| :class:`Layer` -- Keep information about a single layer of graphics
+//| ===================================================================
+//|
+//| .. class:: Layer(width, height, graphic, palette, [grid])
+//|
+//|     Keep internal information about a layer of graphics (either a
+//|     ``Grid`` or a ``Sprite``) in a format suitable for fast rendering
+//|     with the ``render()`` function.
+//|
+//|     :param int width: The width of the grid in tiles, or 1 for sprites.
+//|     :param int height: The height of the grid in tiles, or 1 for sprites.
+//|     :param bytearray graphic: The graphic data of the tiles.
+//|     :param bytearray palette: The color palette to be used.
+//|     :param bytearray grid: The contents of the grid map.
+//|
+//|     This class is intended for internal use in the ``stage`` library and
+//|     it shouldn't be used on its own.
+//|
 STATIC mp_obj_t layer_make_new(const mp_obj_type_t *type, size_t n_args,
         size_t n_kw, const mp_obj_t *args) {
     mp_arg_check_num(n_args, n_kw, 4, 5, false);
@@ -68,7 +87,10 @@ STATIC mp_obj_t layer_make_new(const mp_obj_type_t *type, size_t n_args,
     return MP_OBJ_FROM_PTR(self);
 }
 
-
+//|     .. method:: move(x, y)
+//|
+//|     Set the offset of the layer to the specified values.
+//|
 STATIC mp_obj_t layer_move(mp_obj_t self_in, mp_obj_t x_in, mp_obj_t y_in) {
     layer_obj_t *self = MP_OBJ_TO_PTR(self_in);
     self->x = mp_obj_get_int(x_in);
@@ -77,7 +99,11 @@ STATIC mp_obj_t layer_move(mp_obj_t self_in, mp_obj_t x_in, mp_obj_t y_in) {
 }
 STATIC MP_DEFINE_CONST_FUN_OBJ_3(layer_move_obj, layer_move);
 
-
+//|     .. method:: frame(frame, mirror)
+//|
+//|     Set the animation frame of the sprite, and optionally mirror its
+//|     graphic.
+//|
 STATIC mp_obj_t layer_frame(mp_obj_t self_in, mp_obj_t frame_in,
                             mp_obj_t mirror_in) {
     layer_obj_t *self = MP_OBJ_TO_PTR(self_in);
