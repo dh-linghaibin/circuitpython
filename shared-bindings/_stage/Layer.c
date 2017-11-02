@@ -24,6 +24,8 @@
  * THE SOFTWARE.
  */
 
+#include <py/runtime.h>
+
 #include "__init__.h"
 #include "Layer.h"
 

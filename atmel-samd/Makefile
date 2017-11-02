@@ -334,6 +334,7 @@ SRC_SHARED_MODULE = \
 	random/__init__.c \
 	storage/__init__.c \
 	_stage/__init__.c \
+	_stage/Layer.c \
 	uheap/__init__.c \
 	ustack/__init__.c
 
