@@ -30,6 +30,7 @@
 #include "shared-bindings/busio/SPI.h"
 #include "shared-module/_stage/__init__.h"
 #include "Layer.h"
+#include "Text.h"
 
 //| .. currentmodule:: _stage
 //|
@@ -84,6 +85,7 @@ MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(stage_render_obj, 7, 7, stage_render);
 STATIC const mp_rom_map_elem_t stage_module_globals_table[] = {
     { MP_ROM_QSTR(MP_QSTR___name__), MP_ROM_QSTR(MP_QSTR__stage) },
     { MP_ROM_QSTR(MP_QSTR_Layer), MP_ROM_PTR(&mp_type_layer) },
+    { MP_ROM_QSTR(MP_QSTR_Text), MP_ROM_PTR(&mp_type_text) },
     { MP_ROM_QSTR(MP_QSTR_render), MP_ROM_PTR(&stage_render_obj) },
 };
 

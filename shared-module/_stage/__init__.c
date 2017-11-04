@@ -25,8 +25,10 @@
  */
 
 #include "Layer.h"
+#include "Text.h"
 #include "__init__.h"
 #include "shared-bindings/_stage/Layer.h"
+#include "shared-bindings/_stage/Text.h"
 
 
 bool render_stage(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1,
@@ -45,6 +47,8 @@ bool render_stage(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1,
                 layer_obj_t *obj = MP_OBJ_TO_PTR(layers[layer]);
                 if (obj->base.type == &mp_type_layer) {
                     c = get_layer_pixel(obj, x, y);
+                } else if (obj->base.type == &mp_type_text) {
+                    c = get_text_pixel((text_obj_t *)obj, x, y);
                 }
                 if (c != TRANSPARENT) {
                     buffer[index] = c;
