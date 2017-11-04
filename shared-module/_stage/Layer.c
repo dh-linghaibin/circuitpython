@@ -101,5 +101,5 @@ uint16_t get_layer_pixel(layer_obj_t *layer, int16_t x, uint16_t y) {
     }
 
     // Convert to 16-bit color using the palette.
-    return layer->palette[pixel];
+    return layer->palette[pixel << 1] | layer->palette[(pixel << 1) + 1] << 8;
 }

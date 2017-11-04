@@ -36,7 +36,7 @@ typedef struct {
     mp_obj_base_t base;
     uint8_t *chars;
     uint8_t *font;
-    uint16_t *palette;
+    uint8_t *palette;
     int16_t x, y;
     uint8_t width, height;
 } text_obj_t;

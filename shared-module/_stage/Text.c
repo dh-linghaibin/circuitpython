@@ -61,8 +61,8 @@ uint16_t get_text_pixel(text_obj_t *text, int16_t x, uint16_t y) {
 
     // Get the value of the pixel.
     uint8_t pixel = text->font[(c << 4) + (x << 1) + (y >> 2)];
-    pixel = (pixel >> ((y & 0x03) << 1)) & 0x03;
+    pixel = ((pixel >> ((y & 0x03) << 1)) & 0x03) + color_offset;
 
     // Convert to 16-bit color using the palette.
-    return text->palette[pixel + color_offset];
+    return text->palette[pixel << 1] | text->palette[(pixel << 1) + 1] << 8;
 }

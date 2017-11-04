@@ -36,7 +36,7 @@ typedef struct {
     mp_obj_base_t base;
     uint8_t *map;
     uint8_t *graphic;
-    uint16_t *palette;
+    uint8_t *palette;
     int16_t x, y;
     uint8_t width, height;
     uint8_t frame;
