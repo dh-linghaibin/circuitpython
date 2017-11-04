@@ -153,6 +153,7 @@ extern const struct _mp_obj_module_t uheap_module;
 extern const struct _mp_obj_module_t ustack_module;
 extern const struct _mp_obj_module_t samd_module;
 extern const struct _mp_obj_module_t gamepad_module;
+extern const struct _mp_obj_module_t stage_module;
 extern const struct _mp_obj_module_t touchio_module;
 extern const struct _mp_obj_module_t usb_hid_module;
 
@@ -178,11 +179,12 @@ extern const struct _mp_obj_module_t usb_hid_module;
     #define EXTRA_BUILTIN_MODULES \
         { MP_OBJ_NEW_QSTR(MP_QSTR_audioio), (mp_obj_t)&audioio_module }, \
         { MP_OBJ_NEW_QSTR(MP_QSTR_audiobusio), (mp_obj_t)&audiobusio_module }, \
-        { MP_OBJ_NEW_QSTR(MP_QSTR_gamepad),(mp_obj_t)&gamepad_module }, \
         { MP_OBJ_NEW_QSTR(MP_QSTR_nvm), (mp_obj_t)&cpy_nvm_module }, \
         { MP_OBJ_NEW_QSTR(MP_QSTR_bitbangio), (mp_obj_t)&bitbangio_module }
     #define EXPRESS_BOARD
 #else
+    #define CIRCUITPY_GAMEPAD_TICKS 0x1f
+
     #define MICROPY_PY_BUILTINS_REVERSED (0)
     #define MICROPY_PY_MICROPYTHON_MEM_INFO (0)
     #define MICROPY_PY_FRAMEBUF         (0)
@@ -209,6 +211,8 @@ extern const struct _mp_obj_module_t usb_hid_module;
     { MP_OBJ_NEW_QSTR(MP_QSTR_neopixel_write),(mp_obj_t)&neopixel_write_module }, \
     { MP_OBJ_NEW_QSTR(MP_QSTR_samd),(mp_obj_t)&samd_module }, \
     { MP_OBJ_NEW_QSTR(MP_QSTR_usb_hid),(mp_obj_t)&usb_hid_module }, \
+        { MP_OBJ_NEW_QSTR(MP_QSTR_gamepad),(mp_obj_t)&gamepad_module }, \
+        { MP_OBJ_NEW_QSTR(MP_QSTR__stage),(mp_obj_t)&stage_module }, \
     EXTRA_BUILTIN_MODULES
 
 #define MICROPY_PORT_BUILTIN_DEBUG_MODULES \
