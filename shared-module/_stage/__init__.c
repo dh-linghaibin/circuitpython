@@ -28,78 +28,41 @@
 #include "__init__.h"
 
 
-// Get the color of the pixel on the layer.
-uint16_t get_layer_pixel(layer_obj_t *layer, int16_t x, uint16_t y) {
+bool render_stage(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1,
+        mp_obj_t *layers, size_t layers_size,
+        uint16_t *buffer, size_t buffer_size,
+        busio_spi_obj_t *spi) {
 
-    // Shift by the layer's position offset.
-    x -= layer->x;
-    y -= layer->y;
+    // TODO(deshipu): Do a collision check of each layer with the
+    // rectangle, and only process the layers that overlap with it.
 
-    // Bounds check.
-    if ((x < 0) || (x >= layer->width << 4) ||
-            (y < 0) || (y >= layer->height << 4)) {
-        return TRANSPARENT;
-    }
-
-    // Get the tile from the grid location or from sprite frame.
-    uint8_t frame = layer->frame;
-    if (layer->map) {
-        uint8_t tx = x >> 4;
-        uint8_t ty = y >> 4;
-
-        frame = layer->map[(tx * layer->width + ty) >> 1];
-        if (ty & 0x01) {
-            frame &= 0x0f;
-        } else {
-            frame >>= 4;
+    size_t index = 0;
+    for (uint8_t y = y0; y < y1; ++y) {
+        for (uint8_t x = x0; x < x1; ++x) {
+            for (size_t layer = 0; layer < layers_size; ++layer) {
+                uint16_t c = get_layer_pixel(MP_OBJ_TO_PTR(layers[layer]),
+                        x, y);
+                if (c != TRANSPARENT) {
+                    buffer[index] = c;
+                    break;
+                }
+            }
+            index += 1;
+            // The buffer is full, send it.
+            if (index >= buffer_size) {
+                if (!common_hal_busio_spi_write(spi,
+                        ((uint8_t*)buffer), buffer_size * 2)) {
+                    return false;
+                }
+                index = 0;
+            }
         }
     }
-
-    // Get the position within the tile.
-    x &= 0x0f;
-    y &= 0x0f;
-
-    // Rotate the image.
-    uint8_t tx = x; // Temporary variable for swapping.
-    switch (layer->rotation) {
-        case 1: // 90 degrees clockwise
-            x = 15 - y;
-            y = tx;
-            break;
-        case 2: // 180 degrees
-            x = 15 - tx;
-            y = 15 - y;
-            break;
-        case 3: // 90 degrees counter-clockwise
-            x = y;
-            y = 15 - tx;
-            break;
-        case 4: // 0 degrees, mirrored
-            y = 15 - y;
-            break;
-        case 5: // 90 degrees clockwise, mirrored
-            x = y;
-            y = tx;
-            break;
-        case 6: // 180 degrees, mirrored
-            x = 15 - tx;
-            break;
-        case 7: // 90 degrees counter-clockwise, mirrored
-            x = 15 - y;
-            y = 15 - tx;
-            break;
-        default: // 0 degrees
-            break;
+    // Send the remaining data.
+    if (index) {
+        if (!common_hal_busio_spi_write(spi, ((uint8_t*)buffer), index * 2)) {
+            return false;
+        }
     }
-
-    // Get the value of the pixel.
-    uint8_t pixel = layer->graphic[(frame << 7) + (x << 3) + (y >> 1)];
-    if (y & 0x01) {
-        pixel &= 0x0f;
-    } else {
-        pixel >>= 4;
-    }
-
-    // Convert to 16-bit color using the palette.
-    return layer->palette[pixel];
+    return true;
 }

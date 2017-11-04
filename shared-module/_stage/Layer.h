@@ -37,10 +37,12 @@ typedef struct {
     uint8_t *map;
     uint8_t *graphic;
     uint16_t *palette;
-    uint16_t width, height;
-    int16_t x, y, z;
+    int16_t x, y;
+    uint8_t width, height;
     uint8_t frame;
     uint8_t rotation;
 } layer_obj_t;
+
+uint16_t get_layer_pixel(layer_obj_t *layer, int16_t x, uint16_t y);
 
 #endif  // MICROPY_INCLUDED_SHARED_MODULE__STAGE_LAYER

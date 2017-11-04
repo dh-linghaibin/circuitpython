@@ -25,10 +25,11 @@
  */
 
 #include "__init__.h"
-#include "Layer.h"
-#include "shared-bindings/busio/SPI.h"
 #include "py/mperrno.h"
 #include "py/runtime.h"
+#include "shared-bindings/busio/SPI.h"
+#include "shared-module/_stage/__init__.h"
+#include "Layer.h"
 
 //| .. currentmodule:: _stage
 //|
@@ -70,38 +71,11 @@ STATIC mp_obj_t stage_render(size_t n_args, const mp_obj_t *args) {
 
     busio_spi_obj_t *spi = MP_OBJ_TO_PTR(args[6]);
 
-    // TODO(deshipu): Do a collision check of each layer with the
-    // rectangle, and only process the layers that overlap with it.
+    if (!render_stage(x0, y0, x1, y1, layers, layers_size,
+            buffer, buffer_size, spi)) {
+        mp_raise_OSError(MP_EIO);
+    }
 
-    size_t index = 0;
-    for (uint8_t y = y0; y < y1; ++y) {
-        for (uint8_t x = x0; x < x1; ++x) {
-            for (size_t layer = 0; layer < layers_size; ++layer) {
-                uint16_t c = get_layer_pixel(MP_OBJ_TO_PTR(layers[layer]),
-                        x, y);
-                if (c != TRANSPARENT) {
-                    buffer[index] = c;
-                    break;
-                }
-            }
-            index += 1;
-            // The buffer is full, send it.
-            if (index >= buffer_size) {
-                if (!common_hal_busio_spi_write(spi,
-                        ((uint8_t*)bufinfo.buf), bufinfo.len)) {
-                    mp_raise_OSError(MP_EIO);
-                }
-                index = 0;
-            }
-        }
-    }
-    // Send the remaining data.
-    if (index) {
-        if (!common_hal_busio_spi_write(spi,
-                ((uint8_t*)bufinfo.buf), index * 2)) {
-            mp_raise_OSError(MP_EIO);
-        }
-    }
     return mp_const_none;
 }
 MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(stage_render_obj, 7, 7, stage_render);
