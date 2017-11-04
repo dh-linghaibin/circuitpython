@@ -44,7 +44,7 @@ uint16_t get_text_pixel(text_obj_t *text, int16_t x, uint16_t y) {
     // Get the tile from the grid location or from sprite frame.
     uint8_t tx = x >> 3;
     uint8_t ty = y >> 3;
-    uint8_t c = text->chars[tx * text->width + ty];
+    uint8_t c = text->chars[ty * text->width + tx];
     uint8_t color_offset = 0;
     if (c & 0x80) {
         color_offset = 4;
