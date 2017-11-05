@@ -64,8 +64,8 @@ STATIC mp_obj_t text_make_new(const mp_obj_type_t *type, size_t n_args,
     mp_buffer_info_t bufinfo;
     mp_get_buffer_raise(args[2], &bufinfo, MP_BUFFER_READ);
     self->font = bufinfo.buf;
-    if (bufinfo.len != 1536) {
-        mp_raise_ValueError("font must be 1536 bytes long");
+    if (bufinfo.len != 2048) {
+        mp_raise_ValueError("font must be 2048 bytes long");
     }
 
     mp_get_buffer_raise(args[3], &bufinfo, MP_BUFFER_READ);

@@ -50,10 +50,9 @@ uint16_t get_text_pixel(text_obj_t *text, int16_t x, uint16_t y) {
         color_offset = 4;
     }
     c &= 0x7f;
-    if (c < 32) {
+    if (!c) {
         return TRANSPARENT;
     }
-    c -= 32;
 
     // Get the position within the char.
     x &= 0x07;
